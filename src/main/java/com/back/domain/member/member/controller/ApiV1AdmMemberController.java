@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +31,15 @@ public class ApiV1AdmMemberController {
         return members.stream()
                 .map(MemberWithUsernameDto::new)
                 .toList();
+    }
+
+    @GetMapping("/{id}")
+    @Transactional(readOnly = true)
+    public MemberWithUsernameDto getItem(
+            @PathVariable int id
+    ) {
+        Member member = memberService.findById(id).get();
+
+        return new MemberWithUsernameDto(member);
     }
 }
