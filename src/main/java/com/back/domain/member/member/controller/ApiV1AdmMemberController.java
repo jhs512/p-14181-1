@@ -1,7 +1,7 @@
 package com.back.domain.member.member.controller;
 
 
-import com.back.domain.member.member.dto.MemberDto;
+import com.back.domain.member.member.dto.MemberWithUsernameDto;
 import com.back.domain.member.member.entity.Member;
 import com.back.domain.member.member.service.MemberService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,11 +24,11 @@ public class ApiV1AdmMemberController {
 
     @GetMapping
     @Transactional(readOnly = true)
-    public List<MemberDto> getItems() {
+    public List<MemberWithUsernameDto> getItems() {
         List<Member> members = memberService.findAll();
 
         return members.stream()
-                .map(MemberDto::new)
+                .map(MemberWithUsernameDto::new)
                 .toList();
     }
 }
